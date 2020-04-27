@@ -1,8 +1,8 @@
 TARGET = dunelegacy
-LIBS =  -lSDL2  -L/usr/local/lib -noixemul -lc  -lc -lm -lwstdio -lSDL2_mixer -lSDL2_ttf 
+LIBS =  -lSDL2  -L/gg/usr/local/lib -noixemul -lc  -lc -lm -lwstdio -lSDL2_mixer -lSDL2_ttf 
 CXX = ppc-morphos-g++-9
 STRIP = strip
-CXXFLAGS = -I/usr/local/include -noixemul -O2 -Wall -I/usr/local/include/SDL2 -I../include -I. -I../ -fexceptions -Wextra
+CXXFLAGS = -I/gg/usr/local/include -noixemul -O2 -Wall -I/gg/usr/local/include/SDL2 -I../include -I. -I../ -fexceptions -Wextra
 #-fpermissive
 
 .PHONY: default all clean
