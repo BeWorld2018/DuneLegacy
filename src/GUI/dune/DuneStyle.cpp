@@ -31,8 +31,7 @@ sdl2::surface_ptr DuneStyle::createSurfaceWithText(const std::string& text, Uint
         return pFontManager->createSurfaceWithText(text, color, fontsize);
     } else {
         // create dummy surface
-
-        auto surface = sdl2::surface_ptr{ SDL_CreateRGBSurface(0, text.length() * 15, 12, SCREEN_BPP, RMASK, GMASK, BMASK, AMASK) };
+        auto surface = sdl2::surface_ptr{ SDL_CreateRGBSurface(0, text.length() * 10, 12, SCREEN_BPP, RMASK, GMASK, BMASK, AMASK) };
         if(surface == nullptr) {
             return nullptr;
         }
@@ -68,7 +67,7 @@ sdl2::surface_ptr DuneStyle::createLabelSurface(Uint32 width, Uint32 height, con
 
     // create surfaces
     sdl2::surface_ptr surface = sdl2::surface_ptr{ SDL_CreateRGBSurface(0, width, height, SCREEN_BPP, RMASK, GMASK, BMASK, AMASK) };
-	if(surface == nullptr) {
+    if(surface == nullptr) {
         return nullptr;
     }
 

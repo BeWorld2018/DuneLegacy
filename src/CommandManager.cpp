@@ -54,18 +54,13 @@ void CommandManager::save(OutputStream& stream) const {
 }
 
 void CommandManager::load(InputStream& stream) {
-	 try {  
+    try {
         while(1) {
             Uint32 cycle = stream.readUint32();
-			if (cycle != -1) {
-            	addCommand(Command(stream), cycle);
-			}else{
-				break;
-			}
+            addCommand(Command(stream), cycle);
         }
     } catch (InputStream::exception&) {
-		;
-        
+        ;
     }
 }
 
@@ -114,7 +109,6 @@ void CommandManager::addCommandList(const std::string& playername, const Command
 }
 
 void CommandManager::addCommand(const Command& cmd, Uint32 CycleNumber) {
-
     if(bReadOnly == false) {
 
         if(CycleNumber >= timeslot.size()) {

@@ -503,7 +503,6 @@ sdl2::surface_ptr PictureFactory::createMainBackground() const {
     SDL_BlitSurface(harkonnenLogo.get(),nullptr,Pic.get(),&dest1);
 
     SDL_Rect dest2 = calcDrawingRect(atreidesLogo.get(),getWidth(Pic.get())-11,11,HAlign::Right,VAlign::Top);
-	
     SDL_BlitSurface(atreidesLogo.get(),nullptr,Pic.get(),&dest2);
 
     SDL_Rect dest3 = calcDrawingRect(ordosLogo.get(),11,getHeight(Pic.get())-11,HAlign::Left,VAlign::Bottom);
@@ -512,7 +511,7 @@ sdl2::surface_ptr PictureFactory::createMainBackground() const {
     sdl2::surface_ptr Version{ getSubPicture(background.get(),0,0,75,32) };
 
     sdl2::surface_ptr VersionText{ pFontManager->createSurfaceWithText(std::string(VERSION), PALCOLOR_BLACK, 14) };
- 	SDL_SetSurfaceBlendMode(VersionText.get(), SDL_BLENDMODE_NONE);
+	// 	SDL_SetSurfaceBlendMode(VersionText.get(), SDL_BLENDMODE_NONE);
     SDL_Rect dest4 = calcDrawingRect(VersionText.get(), getWidth(Version.get())/2, getHeight(Version.get())/2 + 2, HAlign::Center, VAlign::Center);
     SDL_BlitSurface(VersionText.get(),nullptr,Version.get(),&dest4);
 

@@ -188,29 +188,28 @@ void InGameMenu::onSettings()
 
 void InGameMenu::onSave()
 {
-  
-	#ifdef __MORPHOS__
+#ifdef __MORPHOS__
 	std::string savepath("PROGDIR:data/save/");
 	if (bMultiplayer) {
 		std::string savepath("PROGDIR:data/mpsave/");
 	}
-	#else	
+#else	
 	char tmp[FILENAME_MAX];
     fnkdat(bMultiplayer ? "mpsave/" : "save/", tmp, FILENAME_MAX, FNKDAT_USER | FNKDAT_CREAT);
     std::string savepath(tmp);
-	#endif
+#endif
     openWindow(LoadSaveWindow::create(true, _("Save Game"), savepath, "dls", "", color));
 }
 
 void InGameMenu::onLoad()
 {
-	#ifdef __MORPHOS__
+#ifdef __MORPHOS__
 	std::string savepath("PROGDIR:data/save/");
-	#else	
+#else	
     char tmp[FILENAME_MAX];
     fnkdat("save/", tmp, FILENAME_MAX, FNKDAT_USER | FNKDAT_CREAT);
     std::string savepath(tmp);
-	#endif
+#endif
     openWindow(LoadSaveWindow::create(false, _("Load Game"), savepath, "dls", "", color));
 }
 

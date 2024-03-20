@@ -47,16 +47,16 @@ int FontManager::getTextHeight(unsigned int fontSize) {
 sdl2::surface_ptr FontManager::createSurfaceWithText(const std::string& text, Uint32 color, unsigned int fontSize) {
     Font* pFont = getFont(fontSize);
 
-    int width = pFont->getTextWidth(text) + 2;
-    int height = pFont->getTextHeight() + 2;
+    int width = pFont->getTextWidth(text); //  + 2
+    int height = pFont->getTextHeight();  + 2
     sdl2::surface_ptr pic = sdl2::surface_ptr{ SDL_CreateRGBSurface(0, width, height, SCREEN_BPP, RMASK, GMASK, BMASK, AMASK) };
 
-	#ifndef __MORPHOS__
+	//#ifndef __MORPHOS__
  	SDL_SetSurfaceBlendMode(pic.get(), SDL_BLENDMODE_NONE);
-	#endif
+	//#endif
 
     SDL_FillRect(pic.get(), nullptr, COLOR_INVALID);
-   SDL_SetColorKey(pic.get(), SDL_TRUE, COLOR_INVALID);
+    SDL_SetColorKey(pic.get(), SDL_TRUE, COLOR_INVALID);
 
     pFont->drawTextOnSurface(pic.get(),text,color);
 

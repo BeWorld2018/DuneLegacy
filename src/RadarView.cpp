@@ -44,7 +44,7 @@ RadarView::RadarView()
     }
     SDL_FillRect(radarSurface.get(), nullptr, COLOR_BLACK);
 
-    radarTexture = sdl2::texture_ptr{ SDL_CreateTexture(renderer, SDL_PIXELFORMAT_BGRA32, SDL_TEXTUREACCESS_STREAMING, 128, 128) };
+    radarTexture = sdl2::texture_ptr{ SDL_CreateTexture(renderer, SCREEN_FORMAT/*SDL_PIXELFORMAT_BGRA32*/, SDL_TEXTUREACCESS_STREAMING, 128, 128) };
 }
 
 

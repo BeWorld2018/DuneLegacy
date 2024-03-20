@@ -1038,14 +1038,13 @@ void Game::runMainLoop() {
         cmdManager.setReadOnly(true);
     } else {
 
-		#ifdef __MORPHOS__
+#ifdef __MORPHOS__
 		const std::string replayname("PROGDIR:data/replay/auto.rpl");
-		#else	
-		 char tmp[FILENAME_MAX];
+#else	
+		char tmp[FILENAME_MAX];
         fnkdat("replay/auto.rpl", tmp, FILENAME_MAX, FNKDAT_USER | FNKDAT_CREAT);
 		const std::string replayname(tmp);
-		#endif    
-	
+#endif    
 
         auto pStream = std::make_unique<OFileStream>();
 
@@ -1255,13 +1254,13 @@ void Game::runMainLoop() {
     if(bReplay == false && currentGame->won == true) {
         // save replay
         std::string mapnameBase = getBasename(gameInitSettings.getFilename(), true);
-		#ifdef __MORPHOS__
+#ifdef __MORPHOS__
 		std::string replayname("PROGDIR:data/replay/" + mapnameBase + ".rpl");
-		#else	
-		 char tmp[FILENAME_MAX];
+#else	
+		char tmp[FILENAME_MAX];
         fnkdat(std::string("replay/" + mapnameBase + ".rpl").c_str(), tmp, FILENAME_MAX, FNKDAT_USER | FNKDAT_CREAT);
         std::string replayname(tmp);
-		#endif
+#endif
         OFileStream replystream;
         replystream.open(replayname);
         replystream.writeString(getLocalPlayerName());

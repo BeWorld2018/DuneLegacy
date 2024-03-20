@@ -35,9 +35,8 @@ MapEditorRadarView::MapEditorRadarView(MapEditor* pMapEditor)
     radarSurface = sdl2::surface_ptr{ SDL_CreateRGBSurface(0, RADARWIDTH, RADARHEIGHT, SCREEN_BPP, RMASK, GMASK, BMASK, AMASK) };
     SDL_FillRect(radarSurface.get(), nullptr, COLOR_BLACK);
 
-    radarTexture = sdl2::texture_ptr{ SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_STREAMING, RADARWIDTH, RADARHEIGHT) };
-
-	}
+    radarTexture = sdl2::texture_ptr{ SDL_CreateTexture(renderer, SCREEN_FORMAT/*SDL_PIXELFORMAT_RGBA32*/, SDL_TEXTUREACCESS_STREAMING, RADARWIDTH, RADARHEIGHT) };
+}
 
 
 MapEditorRadarView::~MapEditorRadarView() = default;

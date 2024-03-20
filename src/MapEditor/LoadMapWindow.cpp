@@ -224,23 +224,22 @@ void LoadMapWindow::onMapTypeChange(int buttonID)
 
     switch(buttonID) {
         case 0: {
-			#ifdef __MORPHOS__
+#ifdef __MORPHOS__
 			currentMapDirectory = "PROGDIR:data/maps/singleplayer/";
-			#else
+#else
 	     	char tmp[FILENAME_MAX];
             fnkdat("maps/singleplayer/", tmp, FILENAME_MAX, FNKDAT_USER | FNKDAT_CREAT);
 			currentMapDirectory = tmp;
-			#endif
+#endif
         } break;
         case 1: {
-			#ifdef __MORPHOS__
+#ifdef __MORPHOS__
 			currentMapDirectory = "PROGDIR:data/maps/multiplayer/";
-			#else
+#else
             char tmp[FILENAME_MAX];
             fnkdat("maps/multiplayer/", tmp, FILENAME_MAX, FNKDAT_USER | FNKDAT_CREAT);
 			currentMapDirectory = tmp;
-			#endif
-  
+#endif
         } break;
     }
 

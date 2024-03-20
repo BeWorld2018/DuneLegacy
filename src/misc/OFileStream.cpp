@@ -41,10 +41,8 @@ bool OFileStream::open(const char* filename)
         fclose(fp);
     }
 
-	printf("Open OFILE %s\n", filename);
-	
     const char* pFilename = filename;
-/*
+
     #ifdef _WIN32
 
     // on win32 we need an ansi-encoded filepath
@@ -62,7 +60,7 @@ bool OFileStream::open(const char* filename)
     pFilename = szPath;
 
     #endif
-*/
+
     if( (fp = fopen(pFilename,"wb")) == nullptr) {
         return false;
     } else {
@@ -92,6 +90,7 @@ void OFileStream::flush() {
 void OFileStream::writeString(const std::string& str)
 {
     writeUint32(str.length());
+
     if(!str.empty()) {
         if(fwrite(str.c_str(),str.length(),1,fp) != 1) {
             THROW(OutputStream::error, "OFileStream::writeString(): An I/O-Error occurred!");
@@ -108,7 +107,6 @@ void OFileStream::writeUint8(Uint8 x)
 
 void OFileStream::writeUint16(Uint16 x)
 {
-
     x = SDL_SwapLE16(x);
 
     if(fwrite(&x,sizeof(Uint16),1,fp) != 1) {
@@ -118,9 +116,8 @@ void OFileStream::writeUint16(Uint16 x)
 
 void OFileStream::writeUint32(Uint32 x)
 {
-
     x = SDL_SwapLE32(x);
-	
+
     if(fwrite(&x,sizeof(Uint32),1,fp) != 1) {
         THROW(OutputStream::error, "OFileStream::writeUint32(): An I/O-Error occurred!");
     }

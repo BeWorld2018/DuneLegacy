@@ -45,7 +45,11 @@ OptionsMenu::OptionsMenu() : MenuBase()
 {
     determineAvailableScreenResolutions();
 
+#ifdef __MORPHOS__
     std::list<std::string> languagesList = getFileNamesList(getDuneLegacyDataDir() + "/locale/", "po", true, FileListOrder_Name_Asc);
+#else
+    std::list<std::string> languagesList = getFileNamesList(getDuneLegacyDataDir() + "/locale", "po", true, FileListOrder_Name_Asc);
+#endif
     availLanguages = std::vector<std::string>(languagesList.begin(), languagesList.end());
 
     currentGameOptions = settings.gameOptions;

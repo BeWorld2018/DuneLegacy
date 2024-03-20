@@ -65,8 +65,8 @@
 #include <stdio.h>
 #include <locale.h>
 
-unsigned long __stack = 20000000;
-__attribute__ ((section(".text"))) char VString[] = "$VER: dunelegacy 0.97.0 (19.04.2020)\r\n";
+unsigned long __stack = 1024 * 1024;
+__attribute__ ((section(".text"))) char VString[] = "$VER: dunelegacy 0.97.0 (20.03.2024)\r\n";
 #endif
 
 #ifdef _WIN32
@@ -155,13 +155,9 @@ void setVideoMode(int displayIndex)
                               SDL_WINDOWPOS_CENTERED_DISPLAY(displayIndex), SDL_WINDOWPOS_CENTERED_DISPLAY(displayIndex),
                               settings.video.physicalWidth, settings.video.physicalHeight,
                               videoFlags);
-	//#ifdef __MORPHOS__
-	// renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
-	//#else
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
-	//#endif
-    //SDL_RenderSetLogicalSize(renderer, settings.video.width, settings.video.height);
-    screenTexture = SDL_CreateTexture(renderer, SCREEN_FORMAT, SDL_TEXTUREACCESS_STREAMING, settings.video.width, settings.video.height);
+    SDL_RenderSetLogicalSize(renderer, settings.video.width, settings.video.height);
+    screenTexture = SDL_CreateTexture(renderer, SCREEN_FORMAT, SDL_TEXTUREACCESS_TARGET, settings.video.width, settings.video.height);
 
     SDL_ShowCursor(SDL_DISABLE);
 }
@@ -199,10 +195,9 @@ std::string getConfigFilepath()
 {
     // determine path to config file
     char tmp[FILENAME_MAX];
-	#ifdef __MORPHOS__
+#ifdef __MORPHOS__
 	strcpy(tmp, "PROGDIR:" CONFIGFILENAME);
-	#else
-	
+#else
     fnkdat(CONFIGFILENAME, tmp, FILENAME_MAX, FNKDAT_USER | FNKDAT_CREAT);
 #endif
     return std::string(tmp);
@@ -212,10 +207,9 @@ std::string getLogFilepath()
 {
     // determine path to config file
     char tmp[FILENAME_MAX];
-		#ifdef __MORPHOS__
+#ifdef __MORPHOS__
 	strcpy(tmp, "PROGDIR:" LOGFILENAME);
-	#else
-	
+#else
     if(fnkdat(LOGFILENAME, tmp, FILENAME_MAX, FNKDAT_USER | FNKDAT_CREAT) < 0) {
         THROW(std::runtime_error, "fnkdat() failed!");
     }

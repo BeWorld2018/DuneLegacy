@@ -33,8 +33,11 @@
 #define _(msgid) getLocalized(msgid)
 
 TextManager::TextManager() {
-	
-    std::list<std::string> languagesList = getFileNamesList(getDuneLegacyDataDir() + "/locale/", settings.general.language + ".po", true, FileListOrder_Name_Asc);
+#ifdef __MORPHOS__	
+   std::list<std::string> languagesList = getFileNamesList(getDuneLegacyDataDir() + "/locale/", settings.general.language + ".po", true, FileListOrder_Name_Asc);
+#else
+   std::list<std::string> languagesList = getFileNamesList(getDuneLegacyDataDir() + "/locale", settings.general.language + ".po", true, FileListOrder_Name_Asc);
+#endif
 
     if(languagesList.empty()) {
         std::string filepath = getDuneLegacyDataDir() + "/locale/English.en.po";

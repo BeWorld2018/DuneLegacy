@@ -219,13 +219,13 @@ void CustomGameMenu::onCancel()
 
 void CustomGameMenu::onLoad()
 {
-	#ifdef __MORPHOS__
+#ifdef __MORPHOS__
 	std::string savepath("PROGDIR:data/mpsave/");
-	#else
+#else
     char tmp[FILENAME_MAX];
     fnkdat("mpsave/", tmp, FILENAME_MAX, FNKDAT_USER | FNKDAT_CREAT);
     std::string savepath(tmp);
-	#endif
+#endif
     openWindow(LoadSaveWindow::create(false, _("Load Game"), savepath, "dls"));
 }
 
@@ -246,25 +246,25 @@ void CustomGameMenu::onMapTypeChange(int buttonID)
             currentMapDirectory = getDuneLegacyDataDir() + "/maps/singleplayer/";
         } break;
         case 1: {
-			#ifdef __MORPHOS__
+#ifdef __MORPHOS__
 			currentMapDirectory = getDuneLegacyDataDir() + "/maps/singleplayer/";
-			#else
+#else
             char tmp[FILENAME_MAX];
             fnkdat("maps/singleplayer/", tmp, FILENAME_MAX, FNKDAT_USER | FNKDAT_CREAT);
-			 currentMapDirectory = tmp;
-			#endif
+			currentMapDirectory = tmp;
+#endif
         } break;
         case 2: {
             currentMapDirectory = getDuneLegacyDataDir() + "/maps/multiplayer/";
         } break;
         case 3: {
-			#ifdef __MORPHOS__
+#ifdef __MORPHOS__
 			currentMapDirectory = getDuneLegacyDataDir() + "/maps/multiplayer/";
-			#else
+#else
             char tmp[FILENAME_MAX];
             fnkdat("maps/multiplayer/", tmp, FILENAME_MAX, FNKDAT_USER | FNKDAT_CREAT);
             currentMapDirectory = tmp;
-			#endif
+#endif
         } break;
     }
 

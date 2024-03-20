@@ -879,22 +879,20 @@ void MapEditorInterface::onSave() {
     std::vector<std::string> mapDirectories;
     std::vector<std::string> directoryTitles;
 
-  
-	#ifdef __MORPHOS__
+#ifdef __MORPHOS__
 	 mapDirectories.emplace_back(getDuneLegacyDataDir() + "/maps/singleplayer/");
-	#else
+#else
 	char tmp[FILENAME_MAX];
     fnkdat("maps/singleplayer/", tmp, FILENAME_MAX, FNKDAT_USER | FNKDAT_CREAT);
 	mapDirectories.emplace_back(tmp);
-	#endif
-
+#endif
     directoryTitles.push_back(_("SP Maps"));
-	#ifdef __MORPHOS__
-	    mapDirectories.emplace_back(getDuneLegacyDataDir() + "/maps/multiplayer/");
-	#else
+#ifdef __MORPHOS__
+	mapDirectories.emplace_back(getDuneLegacyDataDir() + "/maps/multiplayer/");
+#else
     fnkdat("maps/multiplayer/", tmp, FILENAME_MAX, FNKDAT_USER | FNKDAT_CREAT);
     mapDirectories.emplace_back(tmp);
-	#endif
+#endif
     directoryTitles.push_back(_("MP Maps"));
 
     const std::string& lastSaveName = pMapEditor->getLastSaveName();
