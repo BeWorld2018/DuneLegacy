@@ -1091,7 +1091,9 @@ void Game::runMainLoop() {
 
     //main game loop
     do {
-        SDL_SetRenderTarget(renderer, screenTexture);
+        if(settings.video.renderToTexture) {
+            SDL_SetRenderTarget(renderer, screenTexture);
+        }
 
         // clear whole screen
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -1101,11 +1103,13 @@ void Game::runMainLoop() {
 
         SDL_RenderPresent(renderer);
 
-        SDL_SetRenderTarget(renderer, nullptr);
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-        SDL_RenderClear(renderer);
-        SDL_RenderCopy(renderer, screenTexture, nullptr, nullptr);
-        SDL_RenderPresent(renderer);
+        if(settings.video.renderToTexture) {
+            SDL_SetRenderTarget(renderer, nullptr);
+            SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+            SDL_RenderClear(renderer);
+            SDL_RenderCopy(renderer, screenTexture, nullptr, nullptr);
+            SDL_RenderPresent(renderer);
+        }
 
         const int frameEnd = SDL_GetTicks();
 
@@ -2093,6 +2097,34 @@ void Game::handleKeyInput(SDL_KeyboardEvent& keyboardEvent) {
                 }
             }
         } break;
+
+#ifdef __vita__
+        case SDLK_s: {
+            //stop
+            UnitBase* pLastUnit = nullptr;
+            for(const Uint32 selectedUnitID : currentGame->getSelectedList()) {
+                ObjectBase* pObject = currentGame->getObjectManager().getObject(selectedUnitID);
+                UnitBase* pUnit = dynamic_cast<UnitBase*>(pObject);
+                if(pUnit != nullptr) {
+                    pLastUnit = pUnit;
+                    pUnit->handleSetAttackModeClick(GUARD);
+                }
+            }
+
+            if(pLastUnit != nullptr) {
+                pLastUnit->playConfirmSound();
+            }
+        } break;
+#else
+        case SDLK_s: {
+            for(Uint32 objectID : selectedList) {
+                ObjectBase* pObject = objectManager.getObject(objectID);
+                if(pObject->isAUnit() && (pObject->getOwner() == pLocalHouse) && pObject->isRespondable()) {
+                    static_cast<UnitBase*>(pObject)->handleSetAttackModeClick(STOP);
+                }
+            }
+        } break;
+#endif
 
         case SDLK_g: {
             // select next construction yard

@@ -244,6 +244,7 @@ void createDefaultConfigFile(const std::string& configfilepath, const std::strin
                                 "Preferred Zoom Level = 1    # 0 = no zooming, 1 = 2x, 2 = 3x\n"
                                 "Scaler = ScaleHD            # Scaler to use: ScaleHD = apply manual drawn mask to upscale, Scale2x = smooth edges, ScaleNN = nearest neighbour, \n"
                                 "RotateUnitGraphics = false  # Freely rotate unit graphics, e.g. carryall graphics\n"
+                                "Render To Texture = true    # true = compose screen in texture, false = render directly to window\n"
                                 "\n"
                                 "[Audio]\n"
                                 "# There are three different possibilities to play music\n"
@@ -526,6 +527,7 @@ int main(int argc, char *argv[]) {
             settings.video.preferredZoomLevel = myINIFile.getIntValue("Video","Preferred Zoom Level", 0);
             settings.video.scaler = myINIFile.getStringValue("Video","Scaler","ScaleHD");
             settings.video.rotateUnitGraphics = myINIFile.getBoolValue("Video","RotateUnitGraphics",false);
+            settings.video.renderToTexture = myINIFile.getBoolValue("Video","Render To Texture", true);
             settings.audio.musicType = myINIFile.getStringValue("Audio","Music Type","adl");
             settings.audio.playMusic = myINIFile.getBoolValue("Audio","Play Music", true);
             settings.audio.musicVolume = myINIFile.getIntValue("Audio","Music Volume", 64);
